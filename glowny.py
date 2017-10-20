@@ -1,3 +1,6 @@
+import datetime
+
+
 # Rightful code
 class Jebaka:
     my_dictionary = {"if": "jeżeli",
@@ -60,6 +63,40 @@ class Jebaka:
                      "new": "nowy"
                      }
 
+    my_py_dictionary = {'False': 'Fałsz',
+                        'None': 'Nic',
+                        'True': 'Prawda',
+                        'and': 'oraz',
+                        'as': 'jako',
+                        'assert': 'zapewnij',
+                        'break': 'przerwij',
+                        'class': 'klasa',
+                        'continue': 'kontynuuj',
+                        'def': 'definicja',
+                        'del': 'usuń',
+                        'elif': 'przeciwnie-jeżeli',
+                        'else': 'przeciwnie',
+                        'except': 'za_wyjątkiem',
+                        'finally': 'końcowe',
+                        'for': 'przez',
+                        'from': 'z',
+                        'global': 'globalna',
+                        'if': 'jeżeli',
+                        'import': 'importuj',
+                        'in': 'w',
+                        'is': 'jest',
+                        'lambda': 'lambduj',
+                        'nonlocal': 'nielokalnie',
+                        'not': 'nie',
+                        'or': 'albo',
+                        'pass': 'przepuść',
+                        'raise': 'wznieś',
+                        'return': 'zwróc',
+                        'try': 'spróbuj',
+                        'while': 'podczas',
+                        'with': 'z',
+                        'yield': 'dostarcz'}
+
     def translate(self, line):
         result = line
         for elem in line.split(" "):
@@ -78,8 +115,8 @@ class Jebaka:
             else:
                 word += letter
                 if len(word) > 0:
-                    if self.my_dictionary.get(word, False):
-                        result = result.replace(word, self.my_dictionary[word])
+                    if self.my_py_dictionary.get(word, False):
+                        result = result.replace(word, self.my_py_dictionary[word])
         return result
 
     def main(self):
@@ -98,16 +135,21 @@ class Jebaka:
         # Przetworznie według kluczy ze słownika - linia po linii
         i = 0
         da_new_file = "";
+        print('Tlumaczenie:')
         for line in text_file:
             # Tlumacz linie jako calosc
             da_new_line = self.translate_2(line.lower().rstrip('\n'))
-            print('Linia {0} przetłumaczona na: {1}'.format(i, da_new_line))
+            print('#{0}: {1}'.format(i, da_new_line))
             da_new_file += da_new_line
             i += 1
         text_file.close()
         print("\n\nKoniec-Pliku")
         # Zapis do pliku
-
+        #TODO GET TIMESTAMP
+        #TODO concatenate it in file name
+        #f = open('myfile', 'w')
+        #f.write('hi there\n')  # python will convert \n to os.linesep
+        #f.close()
 
 if __name__ == "__main__":
     a = Jebaka()
