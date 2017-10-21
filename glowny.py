@@ -115,21 +115,22 @@ class Jebaka:
             print('Nie ma takiego {0}..'.format(text_file))
             return
 
-        self.translate_file(file_extension, text_file)
+        self.translate_file(file_extension, file_name, text_file)
 
-    def translate_file(self, extension, text_file):
+    def translate_file(self, extension, file_name, text_file):
         if self.dictionaries.get(extension, False):
             # Przetworznie według kluczy ze słownika - linia po linii
             i = 0
-            da_new_file = ""
+            da_new_file = []
             print('Tlumaczenie:')
             for line in text_file:
                 # Tlumacz linie jako calosc
                 da_new_line = self.translate_2(extension, line.lower().rstrip('\n'))
                 print('#{0}: {1}'.format(i, da_new_line))
-                da_new_file += da_new_line
+                da_new_file.append(da_new_line)
                 i += 1
             text_file.close()
+            self.save_file(da_new_file, file_name)
             print("\n\nKoniec-Pliku")
             # Zapis do pliku
             # TODO GET TIMESTAMP
@@ -139,6 +140,10 @@ class Jebaka:
             # f.close()
         else:
             print("Format pliku nieobługiwany.")
+
+    def save_file(self, da_new_file, old_file_name):
+        with open("translated_" + old_file_name, 'w') as file_handler:
+            file_handler.write("\n".join(da_new_file))
 
 
 if __name__ == "__main__":
