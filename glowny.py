@@ -2,6 +2,7 @@ import configparser
 
 # Rightful code
 import os
+import DaWindow
 
 
 class Jebaka:
@@ -101,6 +102,9 @@ class Jebaka:
         return result
 
     def main(self):
+        # Okienko
+        DaWindow.showMe()
+
         # Odczyt nazwy pliku
         file_name = input('Podaj nazwe pliku do przerobienia> ')
         file_extension = os.path.splitext(file_name)[1][1:]
@@ -132,12 +136,6 @@ class Jebaka:
             text_file.close()
             self.save_file(da_new_file, file_name)
             print("\n\nKoniec-Pliku")
-            # Zapis do pliku
-            # TODO GET TIMESTAMP
-            # TODO concatenate it in file name
-            # f = open('myfile', 'w')
-            # f.write('hi there\n')  # python will convert \n to os.linesep
-            # f.close()
         else:
             print("Format pliku nieobługiwany.")
 
