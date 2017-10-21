@@ -102,9 +102,6 @@ class Jebaka:
         return result
 
     def main(self):
-        # Okienko
-        DaWindow.showMe()
-
         # Odczyt nazwy pliku
         file_name = input('Podaj nazwe pliku do przerobienia> ')
         file_extension = os.path.splitext(file_name)[1][1:]
