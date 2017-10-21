@@ -10,8 +10,8 @@ class DaWindow(Gtk.Window):
         self.set_default_size(400, 200)
         self.showMe()
         self.box = Gtk.Box(Gtk.Orientation.VERTICAL, spacing=10)
-        grid = Gtk.Grid()
-        self.add(grid)
+        self.grid = Gtk.Grid()
+        self.add(self.grid)
 
         self.button1 = Gtk.Button(label="Załaduj")
         self.button1.connect("clicked", self.on_button1_clicked)
@@ -22,12 +22,27 @@ class DaWindow(Gtk.Window):
         self.button3 = Gtk.Button(label="Zapisz")
         self.button3.connect("clicked", self.on_button3_clicked)
 
-        grid.add(self.button1)
-        grid.attach(self.button2, 1, 0, 1, 1)
-        grid.attach(self.button3, 2, 0, 1, 1)
+        self.grid.add(self.button1)
+        self.grid.attach(self.button2, 1, 0, 1, 1)
+        self.grid.attach(self.button3, 2, 0, 1, 1)
 
-        self.create_textview()
+        scrolledwindow_left = Gtk.ScrolledWindow()
+        scrolledwindow_left.set_hexpand(True)
+        scrolledwindow_left.set_vexpand(True)
+        self.grid.attach(scrolledwindow_left, 0, 1, 1, 1)
+        self.textview_left = Gtk.TextView()
+        self.textbuffer_left = self.textview_left.get_buffer()
+        self.textbuffer_left.set_text("Left!.")
+        scrolledwindow_left.add(self.textview_left)
 
+        scrolledwindow_right = Gtk.ScrolledWindow()
+        scrolledwindow_right.set_hexpand(True)
+        scrolledwindow_right.set_vexpand(True)
+        self.grid.attach(scrolledwindow_right, 2, 1, 1, 1)
+        self.textview_right = Gtk.TextView()
+        self.textbuffer_right = self.textview_right.get_buffer()
+        self.textbuffer_right.set_text("Right!.")
+        scrolledwindow_right.add(self.textview_right)
 
     def on_button1_clicked(self, widget):
         print("Loaded")
@@ -43,24 +58,6 @@ class DaWindow(Gtk.Window):
 
     def showMe(self):
         print('Showing the window')
-
-    def create_textview(self):
-        scrolledwindow_left = Gtk.ScrolledWindow()
-        scrolledwindow_left.set_hexpand(True)
-        scrolledwindow_left.set_vexpand(True)
-        self.grid.attach(scrolledwindow_left, 0, 1, 1, 1)
-
-        scrolledwindow_right = Gtk.ScrolledWindow()
-        scrolledwindow_right.set_hexpand(True)
-        scrolledwindow_right.set_vexpand(True)
-        self.grid.attach(scrolledwindow_right, 3, 1, 1, 1)
-
-        self.textview = Gtk.TextView()
-        self.textbuffer = self.textview.get_buffer()
-        self.textbuffer.set_text("This is some text inside of a Gtk.TextView. "
-                                 + "Select text and click one of the buttons 'bold', 'italic', "
-                                 + "or 'underline' to modify the text accordingly.")
-        scrolledwindow.add(self.textview)
 
 
 win = DaWindow()
